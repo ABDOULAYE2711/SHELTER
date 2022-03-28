@@ -24,7 +24,7 @@ df1=df.iloc[:,0:9]
 
 
 for i in df1.columns:
-    fig = px.histogram(df1, x = i, color_discrete_sequence=['#EF553B'])
+    fig = px.histogram(df1, x = i, color_discrete_sequence=['#EF553B'], template='plotly_white')
     st.plotly_chart(fig)
 
 # IT Assets and Connectivity
@@ -32,7 +32,7 @@ st.markdown("# IT Assets and Connectivity")
 df2=df.iloc[:,10:44]
 
 for i in df2.columns:
-    fig1 = px.histogram(df2, x = i, color_discrete_sequence=['#EF553B'])
+    fig1 = px.histogram(df2, x = i, color_discrete_sequence=['#EF553B'], template='plotly_white')
     st.plotly_chart(fig1)
 
 
@@ -41,7 +41,7 @@ st.markdown("# Available informations")
 df3=df.iloc[:,45:78]
 
 for i in df3.columns:
-    fig2 = px.histogram(df3, x = i, color_discrete_sequence=['#EF553B'])
+    fig2 = px.histogram(df3, x = i, color_discrete_sequence=['#EF553B'], template='plotly_white')
     st.plotly_chart(fig2)
 
 
@@ -50,5 +50,5 @@ st.markdown("# Gaps informations")
 df4=df.iloc[:,95:110]
 
 for i in df4:
-    fig3 = px.histogram(df4, x = i, color_discrete_sequence=['#EF553B'])
+    fig3 = px.histogram(df4, x = i, color_discrete_sequence=['#EF553B'], template='plotly_white')
     st.plotly_chart(fig3)
