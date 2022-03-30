@@ -19,7 +19,6 @@ st.image(image)
 st.markdown("# The database")
 df = pd.read_excel("IGS1.xlsx")
 
-
 #----FILTER--------
 st.sidebar.header("Please Filter Here :")
 organization = st.sidebar.multiselect(
@@ -35,29 +34,53 @@ country = st.sidebar.multiselect(
     default=df['Country'].unique()
 )
 
+typeof = st.sidebar.multiselect(
+    "Select the Type:",
+    options=df['Type'].unique(),
+    default=df['Type'].unique()
+)
+
+#----selectbox section-----
+section = st.sidebar.selectbox('REPORT SECTION',['General and occupation','IT Assets','Avilable Information','Gaps informations'])
+
 df_select = df.query(
-    "Type_of_Organization == @organization & Country == @country"
+    "Type_of_Organization == @organization & Country == @country & Type == @typeof"
 )
 
 st.dataframe(df_select)
 
-# General and occupation
-st.markdown("# General and occupation")
-df1=df_select.iloc[:,0:10]
 
+if section == 'General and occupation':
+    # General and occupation
+    st.markdown("# General and occupation")
+    df1=df_select.iloc[:,0:10]
+    for i in df1.columns:
+        fig = px.histogram(df1, x = i, color_discrete_sequence=['#EF553B'])
+        st.plotly_chart(fig)
+elif section == 'IT Assets':
+    # IT Assets and Connectivity
+    st.markdown("# IT Assets and Connectivity")
+    df2=df_select.iloc[:,11:44]
 
-for i in df1.columns:
-    fig = px.histogram(df1, x = i, color_discrete_sequence=['#EF553B'])
-    st.plotly_chart(fig)
+    for i in df2.columns:
+        fig1 = px.histogram(df2, x = i, color_discrete_sequence=['#EF553B'])
+        st.plotly_chart(fig1)
+elif section == 'Avilable Information':
+    # Available information
+    st.markdown("# Available informations")
+    df3=df_select.iloc[:,45:78]
 
-# IT Assets and Connectivity
-st.markdown("# IT Assets and Connectivity")
-df2=df_select.iloc[:,11:45]
+    for i in df3.columns:
+        fig2 = px.histogram(df3, x = i, color = "What Cashew Value Chain Data do you currently have accsess to? ")
+        st.plotly_chart(fig2)
+else :
+    # Gaps information
+    st.markdown("# Gaps informations")
+    df4=df_select.iloc[:,79:95]
 
-for i in df2.columns:
-    fig1 = px.histogram(df2, x = i, color_discrete_sequence=['#EF553B'])
-    st.plotly_chart(fig1)
-
+    for i in df4:
+        fig3 = px.histogram(df4, x = i, color = "What type of data you would want to have access to ")
+        st.plotly_chart(fig3)
 
 # Available information
 st.markdown("# Available informations")
