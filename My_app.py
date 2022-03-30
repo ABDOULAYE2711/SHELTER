@@ -17,7 +17,7 @@ st.image(image)
 
 #----write Dataframe--------
 st.markdown("# The database")
-df = pd.read_excel("IGS.xlsx")
+df = pd.read_excel("IGS1.xlsx")
 
 
 #----FILTER--------
